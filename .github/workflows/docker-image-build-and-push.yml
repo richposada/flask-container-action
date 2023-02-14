@@ -21,8 +21,8 @@ jobs:
         environment: AzureUSGovernment
         creds: ${{ secrets.AZ_CREDS }}
     
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
+    - uses: actions/checkout@v3.3.0
+    - uses: actions/setup-python@v4.5.0
       with:
         python-version: 3.9
 
@@ -52,7 +52,7 @@ jobs:
         pytest --cov=./ --cov-report=xml
 
     - name: "Upload coverage to Codecov"
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3.1.1
       with:
         fail_ci_if_error: false
         verbose: true
