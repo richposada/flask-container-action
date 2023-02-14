@@ -19,7 +19,6 @@ jobs:
     - uses: azure/login@v1.4.6
       with:
         environment: AzureUSGovernment
-        subscription-id: 3bd54f98-8de8-4dd8-bfe0-acf49e7cb725
         creds: ${{ secrets.AZ_CREDS }}
     
     - uses: actions/checkout@v3.3.0
