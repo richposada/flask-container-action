@@ -18,6 +18,7 @@ jobs:
     steps:
     - uses: azure/login@v1
       with:
+        environment: AzureUSGovernment
         creds: ${{ secrets.AZ_CREDS }}
     
     - uses: actions/checkout@v2
