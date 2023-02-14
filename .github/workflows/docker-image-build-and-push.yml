@@ -88,6 +88,11 @@ jobs:
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
 
     #Deploy ACI
+    - uses: azure/login@v1
+      with:
+        environment: AzureUSGovernment
+        creds: ${{ secrets.AZ_CREDS }}
+
     - name: 'Deploy to Azure Container Instances'
       uses: 'azure/aci-deploy@v1'
       with:
