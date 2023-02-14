@@ -89,7 +89,7 @@ jobs:
 
     #Deploy ACI
     - name: 'Deploy to Azure Container Instances'
-      uses: 'azure/aci-deploy@v1'
+      uses: 'azure/aci-deploy@v1.1.3'
       with:
         resource-group: flask-demo-rg
         dns-name-label: flaskacidemo
