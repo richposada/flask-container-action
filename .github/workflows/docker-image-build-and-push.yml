@@ -72,12 +72,12 @@ jobs:
         docker push flaskdemoacr.azurecr.us/fca:latest
     
     #Container Scan
-    - name: Container Scan
-      uses: azure/container-scan@v0
-      with:
-        image-name: flaskdemoacr.azurecr.us/fca:${{github.run_number}} # ${{ env.loginServerUrl }}/ would be empty if it's hosted on dockerhub; ${{ github.sha }} could also be replaced with any desired image tag
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
+    #- name: Container Scan
+     # uses: azure/container-scan@v0
+      #with:
+       # image-name: flaskdemoacr.azurecr.us/fca:${{github.run_number}} # ${{ env.loginServerUrl }}/ would be empty if it's hosted on dockerhub; ${{ github.sha }} could also be replaced with any desired image tag
+        #username: ${{ secrets.REGISTRY_USERNAME }}
+        #password: ${{ secrets.REGISTRY_PASSWORD }}
         
     #SBOM
     - name: Anchore SBOM
@@ -98,4 +98,4 @@ jobs:
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
         name: democi
-        location: 'east us2'
+        location: 'USGov Virginia'
