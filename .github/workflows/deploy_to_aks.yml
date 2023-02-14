@@ -132,7 +132,7 @@ jobs:
         # Resource Group Name
         resource-group: flask-demo-rg
         # AKS Cluster Name
-        cluster-name: rckluster
+        cluster-name: flaskcluster
 
     #Create K8S Secret
     - name: Create secret in Kubernetes cluster
