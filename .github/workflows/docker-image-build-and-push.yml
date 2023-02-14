@@ -63,19 +63,19 @@ jobs:
     - name: Docker Images Build And Push
       uses: azure/docker-login@v1
       with:
-        login-server: rcregistry.azurecr.io # default: index.docker.io
+        login-server: flaskdemoacr.azurecr.us # default: index.docker.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build . -t rcregistry.azurecr.io/fca:${{github.run_number}} -t rcregistry.azurecr.io/fca:latest
-        docker push rcregistry.azurecr.io/fca:${{github.run_number}}
-        docker push rcregistry.azurecr.io/fca:latest
+        docker build . -t flaskdemoacr.azurecr.us/fca:${{github.run_number}} -t flaskdemoacr.azurecr.us/fca:latest
+        docker push flaskdemoacr.azurecr.us/fca:${{github.run_number}}
+        docker push flaskdemoacr.azurecr.us/fca:latest
     
     #Container Scan
     - name: Container Scan
       uses: azure/container-scan@v0
       with:
-        image-name: rcregistry.azurecr.io/fca:${{github.run_number}} # ${{ env.loginServerUrl }}/ would be empty if it's hosted on dockerhub; ${{ github.sha }} could also be replaced with any desired image tag
+        image-name: flaskdemoacr.azurecr.us/fca:${{github.run_number}} # ${{ env.loginServerUrl }}/ would be empty if it's hosted on dockerhub; ${{ github.sha }} could also be replaced with any desired image tag
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
         
@@ -83,7 +83,7 @@ jobs:
     - name: Anchore SBOM
       uses: anchore/sbom-action@v0
       with:
-        image: rcregistry.azurecr.io/fca # ${{ env.loginServerUrl }}/ would be empty if it's hosted on docke
+        image: flaskdemoacr.azurecr.us/fca # ${{ env.loginServerUrl }}/ would be empty if it's hosted on docke
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
 
@@ -93,8 +93,8 @@ jobs:
       with:
         resource-group: aks
         dns-name-label: flaskacidemo
-        image: rcregistry.azurecr.io/fca:${{github.run_number}}
-        registry-login-server: rcregistry.azurecr.io
+        image: flaskdemoacr.azurecr.us/fca:${{github.run_number}}
+        registry-login-server: flaskdemoacr.azurecr.us
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
         name: democi

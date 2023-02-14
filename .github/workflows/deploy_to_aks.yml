@@ -88,19 +88,19 @@ jobs:
     - name: Docker Images Build And Push
       uses: azure/docker-login@v1
       with:
-        login-server: rcregistry.azurecr.io # default: index.docker.io
+        login-server: flaskdemoacr.azurecr.us # default: index.docker.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build . -t rcregistry.azurecr.io/fca:${{github.run_number}} -t rcregistry.azurecr.io/fca:latest
-        docker push rcregistry.azurecr.io/fca:${{github.run_number}}
-        docker push rcregistry.azurecr.io/fca:latest
+        docker build . -t flaskdemoacr.azurecr.us/fca:${{github.run_number}} -t flaskdemoacr.azurecr.us/fca:latest
+        docker push flaskdemoacr.azurecr.us/fca:${{github.run_number}}
+        docker push flaskdemoacr.azurecr.us/fca:latest
  
     #Container Scan
     - name: Container Scan
       uses: azure/container-scan@v0
       with:
-        image-name: rcregistry.azurecr.io/fca:${{github.run_number}} # ${{ env.loginServerUrl }}/ would be empty if it's hosted on dockerhub; ${{ github.sha }} could also be replaced with any desired image tag
+        image-name: flaskdemoacr.azurecr.us/fca:${{github.run_number}} # ${{ env.loginServerUrl }}/ would be empty if it's hosted on dockerhub; ${{ github.sha }} could also be replaced with any desired image tag
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
   
@@ -112,7 +112,7 @@ jobs:
     - name: Anchore SBOM
       uses: anchore/sbom-action@v0
       with:
-        image: rcregistry.azurecr.io/fca # ${{ env.loginServerUrl }}/ would be empty if it's hosted on docke
+        image: flaskdemoacr.azurecr.us/fca # ${{ env.loginServerUrl }}/ would be empty if it's hosted on docke
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
         
@@ -138,7 +138,7 @@ jobs:
       uses: Azure/k8s-create-secret@v1.1
       with:
         # Container registry url
-        container-registry-url: rcregistry.azurecr.io
+        container-registry-url: flaskdemoacr.azurecr.us
         # Container registry username
         container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
         # Container registry password
@@ -158,7 +158,7 @@ jobs:
           k8s/deployment.yaml
           k8s/service.yaml
         # Fully qualified resource URL of the image(s) to be used for substitutions on the manifest files Example: contosodemo.azurecr.io/helloworld:test
-        images: rcregistry.azurecr.io/fca:${{github.run_number}}
+        images: flaskdemoacr.azurecr.us/fca:${{github.run_number}}
         # Name of a docker-registry secret that has already been set up within the cluster. Each of these secret names are added under imagePullSecrets field for the workloads found in the input manifest files
         imagepullsecrets: docker-image-pull-secret
         # deploy/promote/reject
