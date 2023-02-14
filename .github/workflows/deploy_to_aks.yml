@@ -14,10 +14,11 @@ jobs:
     steps:
     - uses: azure/login@v1
       with:
+        environment: AzureUSGovernment
         creds: ${{ secrets.AZ_CREDS }}
     
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
+    - uses: actions/checkout@v3.3.0
+    - uses: actions/setup-python@v4.5.0
       with:
         python-version: 3.9
 
@@ -32,7 +33,7 @@ jobs:
 #    runs-on: ubuntu-latest
 #    steps:
 #      - name: 'Checkout Repository'
-#        uses: actions/checkout@v3
+#        uses: actions/checkout@v3.3.0
 #      - name: Dependency Review
 #        uses: actions/dependency-review-action@v2
 #        with:
@@ -43,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     #Security Check - Bandit
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3.3.0
     - name: Security check - Bandit
       uses: ioggstream/bandit-report-artifacts@v0.0.2
       with:
@@ -121,7 +122,7 @@ jobs:
     needs: Docker_Build_And_Scan
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3.3.0
     #Set K8S context
     - name: Azure Kubernetes set context
       uses: Azure/aks-set-context@v1.1
