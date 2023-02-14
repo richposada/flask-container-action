@@ -91,7 +91,7 @@ jobs:
     - name: 'Deploy to Azure Container Instances'
       uses: 'azure/aci-deploy@v1'
       with:
-        resource-group: aks
+        resource-group: flask-demo-rg
         dns-name-label: flaskacidemo
         image: flaskdemoacr.azurecr.us/fca:${{github.run_number}}
         registry-login-server: flaskdemoacr.azurecr.us
