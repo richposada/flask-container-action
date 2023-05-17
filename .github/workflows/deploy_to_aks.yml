@@ -130,7 +130,7 @@ jobs:
         # Azure credentials i.e. output of `az ad sp create-for-rbac --sdk-auth`
         creds: ${{ secrets.AZ_CREDS }}
         # Resource Group Name
-        resource-group: flask-demo-rg
+        resource-group: demo
         # AKS Cluster Name
         cluster-name: flaskcluster
 
