@@ -6,10 +6,10 @@ env:
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  #push:
+   # branches: [ master ]
+  #pull_request:
+   # branches: [ master ]
 
 jobs:
 
@@ -63,19 +63,19 @@ jobs:
     - name: Docker Images Build And Push
       uses: azure/docker-login@v1
       with:
-        login-server: flaskdemoacr.azurecr.us # default: index.docker.io
+        login-server: mydemoacr.azurecr.us # default: index.docker.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build . -t flaskdemoacr.azurecr.us/fca:${{github.run_number}} -t flaskdemoacr.azurecr.us/fca:latest
-        docker push flaskdemoacr.azurecr.us/fca:${{github.run_number}}
-        docker push flaskdemoacr.azurecr.us/fca:latest
+        docker build . -t mydemoacr.azurecr.us/fca:${{github.run_number}} -t mydemoacr.azurecr.us/fca:latest
+        docker push mydemoacr.azurecr.us/fca:${{github.run_number}}
+        docker push mydemoacr.azurecr.us/fca:latest
     
     #Container Scan
     #- name: Container Scan
      # uses: azure/container-scan@v0
       #with:
-       # image-name: flaskdemoacr.azurecr.us/fca:${{github.run_number}} # ${{ env.loginServerUrl }}/ would be empty if it's hosted on dockerhub; ${{ github.sha }} could also be replaced with any desired image tag
+       # image-name: mydemoacr.azurecr.us/fca:${{github.run_number}} # ${{ env.loginServerUrl }}/ would be empty if it's hosted on dockerhub; ${{ github.sha }} could also be replaced with any desired image tag
         #username: ${{ secrets.REGISTRY_USERNAME }}
         #password: ${{ secrets.REGISTRY_PASSWORD }}
         
@@ -83,7 +83,7 @@ jobs:
     - name: Anchore SBOM
       uses: anchore/sbom-action@v0
       with:
-        image: flaskdemoacr.azurecr.us/fca # ${{ env.loginServerUrl }}/ would be empty if it's hosted on docke
+        image: mydemoacr.azurecr.us/fca # ${{ env.loginServerUrl }}/ would be empty if it's hosted on docke
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
 
@@ -91,10 +91,10 @@ jobs:
     - name: 'Deploy to Azure Container Instances'
       uses: 'azure/aci-deploy@v1.1.3'
       with:
-        resource-group: flask-demo-rg
+        resource-group: demo
         dns-name-label: flaskacidemo
-        image: flaskdemoacr.azurecr.us/fca:${{github.run_number}}
-        registry-login-server: flaskdemoacr.azurecr.us
+        image: mydemoacr.azurecr.us/fca:${{github.run_number}}
+        registry-login-server: mydemoacr.azurecr.us
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
         name: democi
